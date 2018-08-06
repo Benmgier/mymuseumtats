@@ -44,7 +44,10 @@ namespace MyMuseumTattooStudio.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env,
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +65,8 @@ namespace MyMuseumTattooStudio.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            DbInitializer.SeedData(userManager, roleManager);
 
             app.UseMvc(routes =>
             {
