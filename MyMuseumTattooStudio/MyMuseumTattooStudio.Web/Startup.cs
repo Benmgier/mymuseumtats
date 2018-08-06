@@ -69,6 +69,11 @@ namespace MyMuseumTattooStudio.Web
             {
                 var _appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
+                if (env.IsProduction())
+                {
+                    _appContext.Database.EnsureCreated();
+                }
+
                 _appContext.Database.Migrate();
                 DbInitializer.SeedData(userManager, roleManager);
             }
