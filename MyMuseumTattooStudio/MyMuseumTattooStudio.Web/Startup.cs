@@ -68,7 +68,7 @@ namespace MyMuseumTattooStudio.Web
 
             var context = app.ApplicationServices.GetService<ApplicationDbContext>();
 
-            if (!context.Database.EnsureCreated())
+            if (context.Database.EnsureCreated())
             {
                 context.Database.Migrate();
                 DbInitializer.SeedData(userManager, roleManager);
