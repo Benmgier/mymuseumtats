@@ -37,14 +37,16 @@ namespace MyMuseumTattooStudio.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -62,18 +64,13 @@ namespace MyMuseumTattooStudio.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            
+
             using (var scope = scopeFactory.CreateScope())
             {
                 var _appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                var _userManager = scope.ServiceProvider.GetService<UserManager<IdentityUser>>();
-                var _roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
-                if (_appContext.Database.EnsureCreated())
-                {
-                    _appContext.Database.Migrate();
-                    DbInitializer.SeedData(_userManager, _roleManager);
-                }
+                _appContext.Database.Migrate();
+                DbInitializer.SeedData(userManager, roleManager);
             }
 
             app.UseMvc(routes =>
