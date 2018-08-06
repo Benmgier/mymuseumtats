@@ -44,10 +44,7 @@ namespace MyMuseumTattooStudio.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
-            IHostingEnvironment env,
-            UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory)
         {
             if (env.IsDevelopment())
             {
@@ -65,13 +62,18 @@ namespace MyMuseumTattooStudio.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
-            var context = app.ApplicationServices.GetService<ApplicationDbContext>();
-
-            if (context.Database.EnsureCreated())
+            
+            using (var scope = scopeFactory.CreateScope())
             {
-                context.Database.Migrate();
-                DbInitializer.SeedData(userManager, roleManager);
+                var _appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
+                var _userManager = scope.ServiceProvider.GetService<UserManager<IdentityUser>>();
+                var _roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+                if (_appContext.Database.EnsureCreated())
+                {
+                    _appContext.Database.Migrate();
+                    DbInitializer.SeedData(_userManager, _roleManager);
+                }
             }
 
             app.UseMvc(routes =>
