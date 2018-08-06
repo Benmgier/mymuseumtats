@@ -66,7 +66,13 @@ namespace MyMuseumTattooStudio.Web
 
             app.UseAuthentication();
 
-            DbInitializer.SeedData(userManager, roleManager);
+            var context = app.ApplicationServices.GetService<ApplicationDbContext>();
+
+            if (!context.Database.EnsureCreated())
+            {
+                context.Database.Migrate();
+                DbInitializer.SeedData(userManager, roleManager);
+            }
 
             app.UseMvc(routes =>
             {
