@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MyMuseumTattooStudio.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyMuseumTattooStudio.Web.Data;
 
 namespace MyMuseumTattooStudio.Web
 {
@@ -68,11 +63,6 @@ namespace MyMuseumTattooStudio.Web
             using (var scope = scopeFactory.CreateScope())
             {
                 var _appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-
-                if (env.IsProduction())
-                {
-                    _appContext.Database.EnsureCreated();
-                }
 
                 _appContext.Database.Migrate();
             }
