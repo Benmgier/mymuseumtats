@@ -15,39 +15,52 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MyMuseumTattooStudio.Web</a>
+
+    <div id="body-wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">My Museum Tattoo Studio</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index"><strong>HOME</strong></a></li>
+                        <li><a asp-area="" asp-controller="cosmetics" asp-action="Index"><strong>PERMANENT AND CORRECTIVE COSMETICS</strong></a></li>
+                        <li><a asp-area="" asp-controller="artists" asp-action="Index"><strong>ARTISTS</strong></a></li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
+        </nav>
+
+        <partial name="_CookieConsentPartial" />
+
+        <div class="container-fluid body-content" style="min-height:100%;">
+            @RenderBody()
+            @*<hr />*@
+
         </div>
-    </nav>
-
-    <partial name="_CookieConsentPartial" />
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - MyMuseumTattooStudio.Web</p>
-        </footer>
     </div>
+    <div class="clearfooter"></div>
+
+    <footer class="footer">
+        <div class="container">
+
+            <div class="row">
+                <p>&copy; 2018 - <strong>My Museum Tattoo Studio</strong></p>
+            </div>
+
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -71,5 +84,6 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

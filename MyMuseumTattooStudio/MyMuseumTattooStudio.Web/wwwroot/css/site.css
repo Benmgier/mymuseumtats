@@ -1,8 +1,59 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
+html {
+    height: 100%;
+}
+
 body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 275px;
+    height: 100%;
+    color: #FFFFFF;
+    background-color:#000000;
+}
+
+#body-wrapper {
+    min-height: 100%;
+    margin-bottom: -275px;
+    position: relative;
+}
+
+
+.clearfooter {
+    height: 275px;
+}
+
+/* 
+    Main footer.
+    These dimensions are based on the Bootstrap 3.3.6 documentation.
+*/
+
+.footer {
+    height: 275px;
+    position: relative;
+    color: #FFF;
+    width: 100%;
+    margin-top: 25px;
+    padding-top: 10px;
+    background-color: #3c0202;
+    border-top: 2px #6D0000 solid;
+}
+
+    .footer a, .footer a:hover, .footer a:visited, .footer a:active {
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    .footer ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+.footer-information {
+    color: #3D9CBF;
+    font-size: 11px;
+    font-style: italic;
+    padding: 10px;
 }
 
 /* Wrapping element */
