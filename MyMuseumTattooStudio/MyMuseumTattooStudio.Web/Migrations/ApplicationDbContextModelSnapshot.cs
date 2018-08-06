@@ -41,6 +41,11 @@ namespace MyMuseumTattooStudio.Web.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new { Id = "6118519e-3106-4d7b-9345-775e8eb11d91", ConcurrencyStamp = "ee9908c6-9d9e-4429-9662-9ea131d3cf25", Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
+                        new { Id = "3a5f2c15-406f-449c-806d-ec344257d743", ConcurrencyStamp = "e56ef85b-f121-486a-b41e-faa6408cd7dd", Name = "Employee", NormalizedName = "EMPLOYEE" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -153,6 +153,16 @@ namespace MyMuseumTattooStudio.Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "6118519e-3106-4d7b-9345-775e8eb11d91", "ee9908c6-9d9e-4429-9662-9ea131d3cf25", "Administrator", "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "3a5f2c15-406f-449c-806d-ec344257d743", "e56ef85b-f121-486a-b41e-faa6408cd7dd", "Employee", "EMPLOYEE" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

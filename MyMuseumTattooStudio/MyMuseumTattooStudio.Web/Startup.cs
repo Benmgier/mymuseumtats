@@ -46,14 +46,12 @@ namespace MyMuseumTattooStudio.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory, UserManager<IdentityUser> userManager)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -77,8 +75,9 @@ namespace MyMuseumTattooStudio.Web
                 }
 
                 _appContext.Database.Migrate();
-                DbInitializer.SeedData(userManager, roleManager);
             }
+
+            ApplicationDbInitializer.SeedUsers(userManager);
 
             app.UseMvc(routes =>
             {
