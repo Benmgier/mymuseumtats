@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model MyMuseumTattooStudio.Web.Areas.Admin.Models.ArtistViewModel
+@inject RoleManager<IdentityRole> RoleManager
+@inject UserManager<Artist> UserManager
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>@Model.UserName</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-area="Admin" asp-controller="Artist" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="UserName" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Facebook" class="control-label"></label>
+                <input asp-for="Facebook" class="form-control" />
+                <span asp-validation-for="Facebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instagram" class="control-label"></label>
+                <input asp-for="Instagram" class="form-control" />
+                <span asp-validation-for="Instagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bio" class="control-label"></label>
+                <textarea asp-for="Bio" class="form-control"></textarea>
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
+
+            <h2>Current profile picture: </h2>
+
+            @{
+                var base64 = Convert.ToBase64String(Model.AvatarImageData);
+                var imgSrc = String.Format("data:{0};base64,{1}", "image/jpeg", base64);
+                <img src="@imgSrc" />
+            }
+
+            <div class="form-group">
+                <label asp-for="AvatarImage" class="control-label"></label>
+                <input asp-for="AvatarImage" class="form-control" type="file" />
+            </div>
+
+            <hr />
+
+            <h2>Users Assigned Roles</h2>
+            @*@foreach (var role in RoleManager.Roles)
+            {
+                <div class="form-group">
+                    <label class="control-label">@role.Name</label>
+                    <input type="checkbox" checked="@{ Model.UsersRoles.Contains(role.Name); }" />
+                </div>
+            }*@
+            
+            <div class="form-group">
+                <label asp-for="UserRoles"></label>
+                <select class="form-control" asp-for="UserRoles" asp-items="@(new MultiSelectList(RoleManager.Roles, "Name", "Name" ))" size="@RoleManager.Roles.Count()"></select>
+                <span asp-validation-for="UserRoles" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

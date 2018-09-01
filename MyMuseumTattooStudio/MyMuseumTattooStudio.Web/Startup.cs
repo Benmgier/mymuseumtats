@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyMuseumTattooStudio.Web.Data;
+using MyMuseumTattooStudio.Web.Models;
 
 namespace MyMuseumTattooStudio.Web
 {
@@ -24,24 +25,27 @@ namespace MyMuseumTattooStudio.Web
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseLazyLoadingProxies()
+                       .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<Artist, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddHttpContextAccessor();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory, UserManager<IdentityUser> userManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceScopeFactory scopeFactory, UserManager<Artist> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -62,15 +66,19 @@ namespace MyMuseumTattooStudio.Web
 
             using (var scope = scopeFactory.CreateScope())
             {
-                var _appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
+                var appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                _appContext.Database.Migrate();
+                appContext.Database.Migrate();
             }
 
             ApplicationDbInitializer.SeedUsers(userManager);
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "adminArea",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

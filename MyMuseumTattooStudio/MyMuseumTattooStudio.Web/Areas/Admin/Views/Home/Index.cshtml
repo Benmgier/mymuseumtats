@@ -1,0 +1,39 @@
+﻿@model List<Artist>
+@{
+    ViewData["Title"] = "Administration Home";
+}
+
+<h2>Index</h2>
+<hr />
+
+<table class="table table-bordered table-hover table-responsive">
+    <thead>
+    <th></th>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+        <tr>
+            <td>
+                @{
+                    var base64 = Convert.ToBase64String(user.AvatarImage);
+                    var imgSrc = String.Format("data:{0};base64,{1}", "image/jpeg", base64);
+                    <img src="@imgSrc"/>
+                }
+            </td>
+            <td>
+                @user.UserName
+            </td>
+            <td>
+                @user.Email
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Artist", new {id = user.Id})
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

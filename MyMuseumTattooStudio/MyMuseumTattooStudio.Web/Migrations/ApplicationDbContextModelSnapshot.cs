@@ -43,8 +43,8 @@ namespace MyMuseumTattooStudio.Web.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "6118519e-3106-4d7b-9345-775e8eb11d91", ConcurrencyStamp = "ee9908c6-9d9e-4429-9662-9ea131d3cf25", Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
-                        new { Id = "3a5f2c15-406f-449c-806d-ec344257d743", ConcurrencyStamp = "e56ef85b-f121-486a-b41e-faa6408cd7dd", Name = "Employee", NormalizedName = "EMPLOYEE" }
+                        new { Id = "d38aea63-4ffe-4e77-aefc-e6c92091c091", ConcurrencyStamp = "5499771d-7ee1-4bc3-9e0b-f9a2542ddb32", Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
+                        new { Id = "038e7b75-2b0b-463d-acd7-b0947b9aa5f2", ConcurrencyStamp = "0bb5d21a-3f5d-48d3-acc0-c3148991024b", Name = "Artist", NormalizedName = "ARTIST" }
                     );
                 });
 
@@ -77,6 +77,9 @@ namespace MyMuseumTattooStudio.Web.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -117,6 +120,8 @@ namespace MyMuseumTattooStudio.Web.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -141,11 +146,9 @@ namespace MyMuseumTattooStudio.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -176,17 +179,70 @@ namespace MyMuseumTattooStudio.Web.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MyMuseumTattooStudio.Web.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired();
+
+                    b.Property<int>("PhotoCategoryId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhotoCategoryId");
+
+                    b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("MyMuseumTattooStudio.Web.Models.PhotoCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PhotoCategories");
+                });
+
+            modelBuilder.Entity("MyMuseumTattooStudio.Web.Models.Artist", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<byte[]>("AvatarImage");
+
+                    b.Property<string>("Bio");
+
+                    b.Property<string>("Facebook");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("Instagram");
+
+                    b.Property<string>("LastName");
+
+                    b.ToTable("Artist");
+
+                    b.HasDiscriminator().HasValue("Artist");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -231,6 +287,14 @@ namespace MyMuseumTattooStudio.Web.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MyMuseumTattooStudio.Web.Models.Photo", b =>
+                {
+                    b.HasOne("MyMuseumTattooStudio.Web.Models.PhotoCategory", "PhotoCategory")
+                        .WithMany("Photos")
+                        .HasForeignKey("PhotoCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

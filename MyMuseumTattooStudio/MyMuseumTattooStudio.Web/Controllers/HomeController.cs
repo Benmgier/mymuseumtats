@@ -12,6 +12,7 @@ namespace MyMuseumTattooStudio.Web.Controllers
     {
         public IActionResult Index()
         {
+            var test = User.Identity;
             return View();
         }
         
