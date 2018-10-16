@@ -23,7 +23,12 @@ namespace MyMuseumTattooStudio.Web.Data
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() },
                 new IdentityRole() { Name = "Artist", NormalizedName = "ARTIST".ToUpper() }
             );
-            
+
+            //modelBuilder.Entity<PhotoCategory>().HasData(
+            //    new PhotoCategory() { Id = 1, Name = "" },
+            //    new PhotoCategory() { Name = "Artist", NormalizedName = "ARTIST".ToUpper() }
+            //);
+
             base.OnModelCreating(modelBuilder);
         }
         
