@@ -1,18 +1,15 @@
-﻿
+﻿@model List<PhotoCategory>
+
 <div class="row">
 
     <ul class="nav nav-gallery filters">
+
         <li class="filtr-button filtr filtr-active" data-filter="all">All</li>
-   
-        <li class="filtr-button filtr" data-filter="1">Cities</li>
- 
-        <li class="filtr-button filtr" data-filter="2">Nature</li>
-    
-        <li class="filtr-button filtr" data-filter="3">Industrial</li>
-     
-        <li class="filtr-button filtr" data-filter="4">Daylight</li>
-    
-        <li class="filtr-button filtr" data-filter="5">Nightscape</li>
+        @foreach (var category in Model)
+        {
+            <li class="filtr-button filtr filtr-active" data-filter="@category.Id">@category.Name</li>
+        }
+
     </ul>
     
 </div>

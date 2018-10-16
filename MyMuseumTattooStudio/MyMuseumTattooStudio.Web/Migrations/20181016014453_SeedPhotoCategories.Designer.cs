@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyMuseumTattooStudio.Web.Data;
 
 namespace MyMuseumTattooStudio.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181016014453_SeedPhotoCategories")]
+    partial class SeedPhotoCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,8 @@ namespace MyMuseumTattooStudio.Web.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "ed14aa7c-e4b7-4e2b-8a4b-58d718c3e944", ConcurrencyStamp = "5c18e6bf-6be4-40ac-8bff-7213414ed97f", Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
-                        new { Id = "d4072732-6c17-4d98-bd3b-dfd82ca5da2f", ConcurrencyStamp = "d3be5045-7011-4b79-aada-23163579ec2e", Name = "Artist", NormalizedName = "ARTIST" }
+                        new { Id = "3bd635f3-1d0e-46e3-9c5d-e0a6f0f211b3", ConcurrencyStamp = "d93e93f8-a50d-4cf3-ab9c-cbea0436549b", Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
+                        new { Id = "01b3655c-927d-4bfe-aae2-0cddf34328d9", ConcurrencyStamp = "a6199a9e-a5e8-4c56-bde2-b10e3a31a1e1", Name = "Artist", NormalizedName = "ARTIST" }
                     );
                 });
 
@@ -224,11 +226,12 @@ namespace MyMuseumTattooStudio.Web.Migrations
                     b.ToTable("PhotoCategories");
 
                     b.HasData(
-                        new { Id = 1, Name = "COLOR" },
-                        new { Id = 2, Name = "BLK-GRY" },
-                        new { Id = 3, Name = "PORTRAITS" },
-                        new { Id = 4, Name = "COVER-UPS" },
-                        new { Id = 5, Name = "PERMANENT-CORRECTIVE-COSMETICS" }
+                        new { Id = 1, Name = "ALL" },
+                        new { Id = 2, Name = "COLOR" },
+                        new { Id = 3, Name = "BLK-GRY" },
+                        new { Id = 4, Name = "PORTRAITS" },
+                        new { Id = 5, Name = "COVER-UPS" },
+                        new { Id = 6, Name = "PERMANENT-CORRECTIVE-COSMETICS" }
                     );
                 });
 

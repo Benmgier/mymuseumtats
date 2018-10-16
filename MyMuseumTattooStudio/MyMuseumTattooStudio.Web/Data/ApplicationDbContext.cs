@@ -24,10 +24,13 @@ namespace MyMuseumTattooStudio.Web.Data
                 new IdentityRole() { Name = "Artist", NormalizedName = "ARTIST".ToUpper() }
             );
 
-            //modelBuilder.Entity<PhotoCategory>().HasData(
-            //    new PhotoCategory() { Id = 1, Name = "" },
-            //    new PhotoCategory() { Name = "Artist", NormalizedName = "ARTIST".ToUpper() }
-            //);
+            modelBuilder.Entity<PhotoCategory>().HasData(
+                new PhotoCategory() { Id = 1, Name = "COLOR" },
+                new PhotoCategory() { Id = 2, Name = "BLK-GRY" },
+                new PhotoCategory() { Id = 3, Name = "PORTRAITS" },
+                new PhotoCategory() { Id = 4, Name = "COVER-UPS" },
+                new PhotoCategory() { Id = 5, Name = "PERMANENT-CORRECTIVE-COSMETICS" }
+            );
 
             base.OnModelCreating(modelBuilder);
         }
