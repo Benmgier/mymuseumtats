@@ -9,7 +9,7 @@ body {
     padding-bottom: 275px;
     height: 100%;
     color: #FFFFFF;
-    background-color:#000000;
+    background-color: #000000;
 }
 
 #body-wrapper {
@@ -85,4 +85,12 @@ body {
     .carousel-caption {
         display: none;
     }
+}
+
+/* CONTACTS BAR */
+#contacts-bar {
+    color: #ffffff;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px 40px;
 }
