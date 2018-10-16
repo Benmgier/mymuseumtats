@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+<div class="row">
+
+    <ul class="nav nav-gallery filters">
+        <li class="filtr-button filtr filtr-active" data-filter="all">All</li>
+   
+        <li class="filtr-button filtr" data-filter="1">Cities</li>
+ 
+        <li class="filtr-button filtr" data-filter="2">Nature</li>
+    
+        <li class="filtr-button filtr" data-filter="3">Industrial</li>
+     
+        <li class="filtr-button filtr" data-filter="4">Daylight</li>
+    
+        <li class="filtr-button filtr" data-filter="5">Nightscape</li>
+    </ul>
+    
+</div>
+
+<div class="row container filtr-container" style="padding: 0px; position: relative; height: 681px;">
+    <div class="col-xs-6 col-sm-4 col-md-3 filtr-item" data-category="1, 5" data-sort="Busy streets" style="opacity: 1; transform: scale(1) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; transition: all 0.5s ease-out 0ms;">
+        <img class="img-responsive" src="~/images/slide-1.jpg" alt="sample image">
+        <div class="item-position">1</div>
+        <span class="item-desc">Busy Streets</span>
+    </div>
+
+    <div class="col-xs-6 col-sm-4 col-md-3 filtr-item" data-category="2, 5" data-sort="Luminous night" style="opacity: 1; transform: scale(1) translate3d(293px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; transition: all 0.5s ease-out 25ms;">
+        <img class="img-responsive" src="~/images/slide-2.jpg" alt="sample image">
+        <div class="item-position">2</div>
+        <span class="item-desc">Luminous night</span>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 filtr-item" data-category="1, 4" data-sort="City wonders" style="opacity: 1; transform: scale(1) translate3d(586px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; transition: all 0.5s ease-out 50ms;">
+        <img class="img-responsive" src="~/images/slide-3.jpg" alt="sample image">
+        <div class="item-position">3</div>
+        <span class="item-desc">City wonders</span>
+    </div>
+</div>

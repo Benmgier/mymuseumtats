@@ -29,15 +29,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="padding:0px;"><img src="~/images/logo.png" height="50" ></a>
-                    
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="padding:0px;"><img src="~/images/logo.png" height="50"></a>
+
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a asp-area="" asp-controller="Home" asp-action="Index"><strong>HOME</strong></a></li>
                         <li><a asp-area="" asp-controller="Cosmetics" asp-action="Index"><strong>PERMANENT AND CORRECTIVE COSMETICS</strong></a></li>
                         <li><a asp-area="" asp-controller="Artists" asp-action="Index"><strong>ARTISTS</strong></a></li>
-                      
+
                         @if (User.IsInRole("Administrator"))
                         {
                             <li><a asp-area="Admin" asp-controller="Home" asp-action="Index"><strong>ADMINISTRATOR</strong></a></li>
@@ -80,7 +80,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @*<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>*@
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>*@
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -97,9 +97,15 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
         @*<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>*@
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>*@
     </environment>
+    <script src="~/js/jquery.filterizr.min.js"></script>
 
+    <script>
+        var filterizd = $('.filtr-container').filterizr({
+            //options object
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 
 </body>
