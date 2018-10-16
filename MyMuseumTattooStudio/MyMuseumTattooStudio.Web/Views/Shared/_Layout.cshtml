@@ -39,6 +39,11 @@
                         <li><a asp-area="" asp-controller="Cosmetics" asp-action="Index"><strong>PERMANENT AND CORRECTIVE COSMETICS</strong></a></li>
                         <li><a asp-area="" asp-controller="Artists" asp-action="Index"><strong>ARTISTS</strong></a></li>
 
+                        @if (User.IsInRole("Artist") || User.IsInRole("Administrator"))
+                        {
+                            <li><a asp-area="Admin" asp-controller="Gallery" asp-action="Index"><strong>GALLERY</strong></a></li>
+                        }
+
                         @if (User.IsInRole("Administrator"))
                         {
                             <li><a asp-area="Admin" asp-controller="Home" asp-action="Index"><strong>ADMINISTRATOR</strong></a></li>

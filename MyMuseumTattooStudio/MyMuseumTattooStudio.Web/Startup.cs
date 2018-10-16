@@ -38,6 +38,8 @@ namespace MyMuseumTattooStudio.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            services.AddHttpContextAccessor();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddHttpContextAccessor();

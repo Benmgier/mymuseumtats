@@ -1,0 +1,66 @@
+﻿@model List<Photo>
+@{
+    ViewData["Title"] = "Artist Gallery Home";
+}
+
+@if (Model != null)
+{
+
+<div class="row">
+
+    <ul class="nav nav-gallery filters">
+
+        <li class="filtr-button filtr filtr-active" data-filter="all">All</li>
+        @foreach (var category in Model.GroupBy(m => m.PhotoCategoryId).Select(p => p.FirstOrDefault()))
+        {
+            <li class="filtr-button filtr filtr-active" data-filter="@category.PhotoCategory.Id">@category.PhotoCategory.Name</li>
+        }
+
+    </ul>
+
+</div>
+
+<div class="filtr-container">
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <div class="col-xs-6 col-sm-4 col-md-3 filtr-item" data-category="@Model[i].PhotoCategory.Id" data-sort="@Model[i].PhotoCategory.Name">
+
+            @if (Model[i].Data != null)
+            {
+                var base64 = Convert.ToBase64String(Model[i].Data);
+                var imgSrc = String.Format("data:{0};base64,{1}", "image/jpeg", base64);
+      
+
+                <a class="gallery-image" href="@imgSrc"> <img src="@imgSrc" style="vertical-align:middle;display:block;max-width: 100%;height: auto;"></a>
+
+                <div class="item-position">@(i+1)</div>
+                <span class="item-desc">@Model[i].PhotoCategory.Name</span>
+            }
+
+        </div>
+    }
+
+</div>
+
+}
+
+<hr />
+<h3>Add More</h3>
+
+<form asp-area="Admin" asp-controller="Gallery" asp-action="Create" method="post" enctype="multipart/form-data">
+  
+
+    <div class="form-group">
+        <label class="control-label">Images to Upload</label>
+        <input name="files" class="form-control" type="file" multiple />
+    </div>
+
+    <hr />
+
+
+
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-default" />
+    </div>
+</form>
